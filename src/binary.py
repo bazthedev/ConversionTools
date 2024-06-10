@@ -32,3 +32,79 @@ def den2bin(den_n : int):
     elif not odd and bin_conv != "":
         bin_conv += "0"
     return bin_conv
+
+def add_bin_n(bin_a, bin_b, den = False):
+    len_bin_a = len(bin_a)
+    len_bin_b = len(bin_b)
+    lis_bin_a = list(str(bin_a))
+    lis_bin_b = list(str(bin_b))
+    out = ""
+    smallest = len_bin_a if len_bin_b > len_bin_a else len_bin_b
+    small = lis_bin_a if len_bin_b > len_bin_a else lis_bin_b
+    big = lis_bin_b if len_bin_b > len_bin_a else lis_bin_a
+    carry = False
+    if len(small) == len(big):
+        for n in range(smallest):
+            n += 1
+            try:
+                if small[-n] == "0" and big[-n] == "0" and carry:
+                    toadd = "1"
+                    carry = False
+                elif small[-n] == "0" and big[-n] == "0":
+                    toadd = "0"
+                elif ((small[-n] == "1" and big[-n] == "0") or (small[-n] == "0" and big[-n] == "1")) and carry:
+                    toadd = "0"
+                    carry = True
+                elif (small[-n] == "1" and big[-n] == "0") or (small[-n] == "0" and big[-n] == "1"):
+                    toadd = "1"
+                elif (small[-n] == "1" and big[-n] == "1")  and carry:
+                    toadd = "1"
+                elif (small[-n] == "1" and big[-n] == "1"):
+                    toadd = "0"
+                    carry = True
+            except IndexError:
+                pass
+            out += toadd
+        if carry:
+            out += "1"
+        output = out[::-1]
+        if den:
+            _out = bin2den(output)
+            return _out
+        else:
+            return output
+    else:
+        n_to_add = len(big) - len(small)
+        toadd = ""
+        for n in range(n_to_add):
+            toadd += "0"
+        small.insert(0, toadd)
+        for n in range(len(big)):
+            n += 1
+            try:
+                if small[-n] == "0" and big[-n] == "0" and carry:
+                    toadd = "1"
+                    carry = False
+                elif small[-n] == "0" and big[-n] == "0":
+                    toadd = "0"
+                elif ((small[-n] == "1" and big[-n] == "0") or (small[-n] == "0" and big[-n] == "1")) and carry:
+                    toadd = "0"
+                    carry = True
+                elif (small[-n] == "1" and big[-n] == "0") or (small[-n] == "0" and big[-n] == "1"):
+                    toadd = "1"
+                elif (small[-n] == "1" and big[-n] == "1")  and carry:
+                    toadd = "1"
+                elif (small[-n] == "1" and big[-n] == "1"):
+                    toadd = "0"
+                    carry = True
+            except IndexError:
+                pass
+            out += toadd
+        if carry:
+            out += "1"
+        output = out[::-1]
+        if den:
+            _out = bin2den(output)
+            return _out
+        else:
+            return output
