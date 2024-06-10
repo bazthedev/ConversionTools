@@ -14,8 +14,8 @@ def den2bin(den_n : int):
     if den_n % 2 == 1:
         odd = True
     bin_conv = ""
-    for i in range(0, 100):
-        x = 100 - i
+    for i in range(0, 1000):
+        x = 1000 - i
         if (den_n - (2**x)) >= 0:
             den_n -= (2**x)
             bin_conv += "1"
